@@ -1,0 +1,24 @@
+diff -uNr aMule-2.3.1-org/aMule-2.3.1/src/libs/ec/cpp/ECSpecialTags.cpp aMule-2.3.1-patched/aMule-2.3.1/src/libs/ec/cpp/ECSpecialTags.cpp
+--- aMule-2.3.1-org/aMule-2.3.1/src/libs/ec/cpp/ECSpecialTags.cpp	2011-06-13 16:50:26.000000000 +0800
++++ aMule-2.3.1-patched/aMule-2.3.1/src/libs/ec/cpp/ECSpecialTags.cpp	2013-03-18 21:07:57.640625000 +0800
+@@ -48,6 +48,8 @@
+                                 return _("Paused");
+                         case PS_ERROR:
+                                 return _("Erroneous");
++                        case PS_INSUFFICIENT:
++                                return _("Insufficient");
+                         default:
+                                 if (SourceXferCount() > 0) {
+                                         return _("Downloading");
+diff -uNr aMule-2.3.1-org/aMule-2.3.1/src/webserver/default/amuleweb-main-dload.php aMule-2.3.1-patched/aMule-2.3.1/src/webserver/default/amuleweb-main-dload.php
+--- aMule-2.3.1-org/aMule-2.3.1/src/webserver/default/amuleweb-main-dload.php	2011-06-13 16:50:26.000000000 +0800
++++ aMule-2.3.1-patched/aMule-2.3.1/src/webserver/default/amuleweb-main-dload.php	2013-03-18 21:36:17.187500000 +0800
+@@ -285,6 +285,8 @@
+ 		{
+ 			if ( $file->status == 7 ) {
+ 				return "Paused";
++			} elseif ( $file->status == 5 ) {
++				return "Insufficient";
+ 			} elseif ( $file->src_count_xfer > 0 ) {
+ 				return "Downloading";
+ 			} else {
